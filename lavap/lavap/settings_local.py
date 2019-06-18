@@ -13,7 +13,7 @@ SECRET_KEY = 'z=3$k@!vx2af0nbdwc2m&*(_apeq^*vq!os04k3$z!_%*2c-a3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['54.65.251.97']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -69,12 +69,8 @@ WSGI_APPLICATION = 'lavap.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db_lavap',
-        'USER': 'lavap',
-        'PASSWORD': 'lavap',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
