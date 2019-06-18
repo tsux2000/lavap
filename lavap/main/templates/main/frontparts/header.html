@@ -1,0 +1,55 @@
+{% load static %}
+<style>
+    a {
+        color: inherit;
+    }
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 40px;
+        width: 100vw;
+        background: #8da;
+        z-index: 10;
+        color: #333;
+    }
+    .header .title {
+        font-size: 24px;
+        line-height: 40px;
+        position: absolute;
+        left: 40px;
+        padding: 0px 16px;
+    }
+    .header .menu_icon {
+        position: absolute;
+        line-height: 40px;
+        text-align: center;
+        width: 40px;
+        font-size: 24px;
+        border-right: 1px solid #666;
+        cursor: pointer;
+    }
+    .header .user_box {
+        position: absolute;
+        right: 0;
+    }
+</style>
+<header class="header">
+    <span class="menu_icon" id="menu_icon"><i class="fas fa-bars"></i></span>
+    <h1 class="title"><a href="{% url 'main:index' %}">{{ meta.title }}Lavatory MAP</a></h1>
+    <div class="user_box">
+        {% if user %}
+            <span class="user_item" id="head_user_icon"><img src="{{ user.icon.url }}"></span>
+            <span class="user_item" id="head_user_name">{{ user.name }}</span>
+            <div class="user_menu" id="user_menu">
+                <ul>
+                    <li><span id="open_user_config">設定</span></li>
+                    <li><a href="{% url 'main:index' %}">ログアウト</a></li>
+                </ul>
+            </div>
+        {% else %}
+            <span class="user_item" id="open_login">ログイン</span>
+            <span class="user_item" id="open_signup">新規登録</span>
+        {% endif %}
+    </div>
+</header>

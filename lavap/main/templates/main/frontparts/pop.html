@@ -1,0 +1,45 @@
+{% load static %}
+<style>
+    .pop_wrap {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 50;
+    }
+
+    .pop_box {
+        position: absolute;
+        width: 400px;
+        top: 100px;
+        left: 100px;
+        background: #fff;
+        border-radius: 8px;
+        z-index: 60;
+        padding: 20px;
+    }
+
+    .pop_box span.title {
+        font-size: 24px;
+        display: block;
+        border-bottom: 1px solid #333;
+        padding: 0px 0px 10px 10px;
+        margin-bottom: 10px;
+    }
+
+    .pop_box span.contents {
+        font-size: 16px;
+        display: block;
+        padding: 0px 15px;
+        line-height: 1.4;
+    }
+</style>
+<div class="pop_wrap">
+    <div class="pop_box">
+        <span class="title">{{ pop.title }}</span>
+        <span class="contents">{{ pop.contents }}</sapn>
+    </div>
+</div>

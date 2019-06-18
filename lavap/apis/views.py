@@ -1,9 +1,9 @@
-import django_filters
+# import django_filters
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
-from django.shortcuts import render
-from rest_framework import viewsets, filters
+# from django.shortcuts import render
+# from rest_framework import viewsets, filters
 from .models import Lavatory
 from .serializer import LavatorySerializer
 from decimal import *
@@ -46,7 +46,6 @@ def lavatories_list(request, lat, lng):
             return JsonResponse(seri.data, status=201)
         return JsonResponse(seri.errors, status=400)
 
-@csrf_exempt
 def lavatory_detail(request, pk):
     """
     Retrieve, update or delete a lavatory.

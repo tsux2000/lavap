@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang = "ja">
+    {% include './frontparts/head.html' %}
+    <body>
+        <style>
+        body {
+            overflow: hidden;
+        }
+        </style>
+        {% include './frontparts/header.html' %}
+        {% include './frontparts/nav.html' %}
+        <main class="main">
+            <div class="view_box">
+                {% block contents %}
+                {% endblock %}
+            </div>
+            <pre id="position_view"></pre>
+        </main>
+        {% include './frontparts/footer.html' %}
+        {% include './frontparts/pop.html' %}
+        {% include './frontparts/alert.html' %}
+
+        <script>
+        // 変数宣言
+            var option = {
+                enableHighAccuracy: false,
+                timeout: 20000,
+                maximumAge: 0,
+            };
+            var map = null;
+            var user_pin = null;
+            var latlng = navigator.geolocation.getCurrentPosition(function(){return {lat: position.coords.latitude, lng: position.coords.longitude};}, errorFunc);;
+            var lavatories = [];
+            var lava_latlng = {};
+            var lava_pins = [];
+            var lava_pops = [];
+            var watch_id;
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {center: latlng, zoom: 17});
+                user_pin = new google.maps.Marker({map: map, position: latlng});
+                watch_id = navigator.geolocation.watchPosition(getPos, errorFunc, option);
+            }
+            function errorFunc(e) {
+                var errorMessage = {
+                    0: "原因不明のエラーが発生しました。" ,
+                    1: "位置情報の取得が許可されませんでした。" ,
+                    2: "位置情報が取得できませんでした。" ,
+                    3: "タイムアウトしました。" ,
+                } ;
+                alert( errorMessage[e.code] );
+            }
+            function getPos(position) {
+                latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                var lat_int = position.coords.latitude.toFixed(6) * 1000000;
+                var lng_int = position.coords.longitude.toFixed(6) * 1000000;
+                if (map) {
+                    map.setCenter(latlng);
+                    user_pin.setPosition(latlng);
+                    var request = new XMLHttpRequest();
+                    var url = "http://54.65.251.97/api/lat/" + lat_int + "/lng/" + lng_int + "/";
+                    request.open('GET', url, true);
+                    request.onload = function () {lavatories = JSON.parse(this.response);}
+                    request.send();
+                    if (lavatories.length > 1) navigator.geolocation.clearWatch(watch_id);
+                    for (var i = 0; i < Object.keys(lavatories).length; i++) {
+                        lava_latlng = new google.maps.LatLng(lavatories[i]['lat'], lavatories[i]['lng']);
+                        lava_pins[i] = new google.maps.Marker({map: map, position: lava_latlng});
+                        lava_pops[i] = new google.maps.InfoWindow({content: '<div class="sample"><a href="/lavatory/' + lavatories[i]['id'] + '/">' + lavatories[i]['building_name'] + '</a></div>'});
+                        markerEvent(i);
+                    }
+                }
+            }
+            function markerEvent(i) {
+                lava_pins[i].addListener('click', function() {
+                    lava_pops[i].open(map, lava_pins[i]);
+                });
+            }
+        </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdMdUIlD6zNpY00DVxORtfx3lRl-siKhw&callback=initMap" async defer></script>
+    </body>
+</html>

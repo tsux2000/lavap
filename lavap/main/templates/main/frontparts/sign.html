@@ -1,0 +1,67 @@
+{% load static %}
+<style>
+    .sign_wrap {
+        /* display: none; */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 50;
+    }
+
+    .sign_box {
+        position: absolute;
+        width: 400px;
+        top: 100px;
+        left: 100px;
+        background: #fff;
+        border-radius: 8px;
+        z-index: 60;
+        padding: 20px;
+    }
+
+    .sign_box span.title {
+        font-size: 24px;
+        display: block;
+        border-bottom: 1px solid #333;
+        padding: 0px 0px 10px 10px;
+        margin-bottom: 10px;
+    }
+
+    .sign_box span.contents {
+        font-size: 16px;
+        display: block;
+        padding: 0px 15px;
+        line-height: 1.4;
+    }
+</style>
+<div class="sign_wrap">
+    <div class="sign_box" id="login_box">
+        <span class="title">ログイン</span>
+        <span class="contents">
+            <form class="login" action="{{ request.path }}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="mode" value="login">
+                <input type="text" name="user_slug" placeholder="User ID">
+                <input type="password" name="password" placeholder="Password">
+                <input type="submit" value="ログイン">
+            </form>
+        </sapn>
+    </div>
+    <div class="sign_box" id="signup_box">
+        <span class="title">新規登録</span>
+        <span class="contents">
+            <form class="signup" action="{{ request.path }}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="mode" value="signup">
+                <input type="text" name="name" placeholder="Name">
+                <input type="text" name="user_slug" placeholder="User ID">
+                <input type="password" name="password" placeholder="Password">
+                <input type="password" name="password_confirm" placeholder="Password (confirm)">
+                <input type="submit" value="新規登録">
+            </form>
+        </sapn>
+    </div>
+</div>
