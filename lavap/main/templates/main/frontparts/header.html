@@ -29,15 +29,17 @@
         border-right: 1px solid #666;
         cursor: pointer;
     }
-    .header .user_box {
+    /* .header .user_box {
         position: absolute;
         right: 0;
-    }
+        display: flex;
+        flex-flow: row;
+    } */
 </style>
 <header class="header">
     <span class="menu_icon" id="menu_icon"><i class="fas fa-bars"></i></span>
-    <h1 class="title"><a href="{% url 'main:index' %}">{{ meta.title }}Lavatory MAP</a></h1>
-    <div class="user_box">
+    <h1 class="title"><a href="{% url 'main:index' %}">{{ meta.title }}</a></h1>
+    <!-- <div class="user_box">
         {% if user %}
             <span class="user_item" id="head_user_icon"><img src="{{ user.icon.url }}"></span>
             <span class="user_item" id="head_user_name">{{ user.name }}</span>
@@ -51,5 +53,5 @@
             <span class="user_item" id="open_login">ログイン</span>
             <span class="user_item" id="open_signup">新規登録</span>
         {% endif %}
-    </div>
+    </div> -->
 </header>

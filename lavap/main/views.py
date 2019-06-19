@@ -2,15 +2,17 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
-from .models import *
-from .forms import *
+# from .models import *
+# from .forms import *
 import hashlib,json
 from decimal import Decimal
 import datetime
 
 class MapView(TemplateView):
     def get(self, request):
-        params = {}
+        params = {
+            'meta': {'title': 'Lavap'}
+        }
         return render(request, 'main/index.html', params)
 
 class LavatoryView(TemplateView):

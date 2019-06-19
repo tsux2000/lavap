@@ -1,20 +1,22 @@
 {% load static %}
 <style>
-.footer {
-    display: inline-block;
-    width: 120px;
-    text-align: center;
-    line-height: 1.4;
+#copyright {
+    line-height: 1.6;
     border-radius: 4px;
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
+    background: #00000080;
+    color: #ffffff;
     font-size: 12px;
     position: fixed;
+    padding: 0 6px;
     bottom: 5px;
-    left: calc(100vw/2 - 60px);
     z-index: 10;
 }
 </style>
+<script>
+    $(function(){
+        $("#copyright").css('left', ($(window).width() - $('#copyright').width()) / 2);
+    });
+</script>
 <footer class="footer">
-    <span>&copy; 2019 tsux</span>
+    <span id="copyright">&copy; 2019 &nbsp; <i>lavap.com</i> &nbsp; All Rights Reserved.</span>
 </footer>
